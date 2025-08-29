@@ -1,28 +1,32 @@
 <template>
   <AppLayout>
-    <div class="px-6 py-8 max-w-4xl mx-auto">
+    <div class="px-6 py-8 max-w-6xl mx-auto ml-20">
       <!-- Loading State -->
       <div v-if="loading" class="animate-pulse">
-        <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded-lg mb-6 w-48"></div>
-        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-2xl overflow-hidden transition">
-          <div class="h-64 bg-gray-200 dark:bg-gray-700"></div>
+        <div class="h-10 rounded-lg mb-6 w-48 " 
+             :style="{ backgroundColor: 'var(--border-color)' }"></div>
+        <div class="shadow-lg rounded-2xl overflow-hidden transition"
+             :style="{ backgroundColor: 'var(--header-bg)', color: 'var(--text-color)' }">
+          <div class="h-64" :style="{ backgroundColor: 'var(--border-color)' }"></div>
           <div class="p-6 space-y-4">
-            <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-            <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
-            <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
-            <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+            <div class="h-6 rounded w-3/4" :style="{ backgroundColor: 'var(--border-color)' }"></div>
+            <div class="h-4 rounded w-1/2" :style="{ backgroundColor: 'var(--border-color)' }"></div>
+            <div class="h-4 rounded" :style="{ backgroundColor: 'var(--border-color)' }"></div>
+            <div class="h-4 rounded w-5/6" :style="{ backgroundColor: 'var(--border-color)' }"></div>
           </div>
         </div>
       </div>
 
       <!-- Product Detail -->
-      <div v-else-if="product" class="bg-white dark:bg-gray-800 shadow-xl rounded-2xl overflow-hidden transition-all duration-300 transform hover:shadow-2xl">
+      <div v-else-if="product" 
+           class="shadow-xl rounded-2xl overflow-hidden transition-all duration-300 transform hover:shadow-2xl"
+           :style="{ backgroundColor: 'var(--header-bg)', color: 'var(--text-color)', borderColor: 'var(--border-color)' }">
         <!-- Gambar Produk -->
         <div class="relative h-64 sm:h-80 md:h-96">
           <img
             :src="product.thumbnail"
             :alt="product.title"
-            class="w-full h-full object-cover"
+            class="w-full h-full object-contain"
           />
           <div class="absolute top-4 left-4">
             <span
@@ -37,40 +41,45 @@
         <!-- Konten Produk -->
         <div class="p-6 sm:p-8">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
-            <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white">
+            <h1 class="text-2xl sm:text-3xl font-bold" 
+                :style="{ color: 'var(--text-color)' }">
               {{ product.title }}
             </h1>
             <button
               @click="$router.back()"
-              class="mt-4 sm:mt-0 px-5 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition text-sm font-medium"
+              class="mt-4 sm:mt-0 px-5 py-2 rounded-lg transition text-sm font-medium"
+              :style="{ backgroundColor: 'var(--border-color)', color: 'var(--text-color)' }"
             >
               ← Back
             </button>
           </div>
 
-          <p class="text-lg text-blue-600 dark:text-blue-400 font-semibold mb-2">
+          <p class="text-lg font-semibold mb-2"
+             :style="{ color: 'var(--primary-text)' }">
             {{ product.brand }}
           </p>
 
           <div class="flex items-center gap-4 mb-4">
-            <p class="text-3xl font-bold text-gray-900 dark:text-white">
+            <p class="text-3xl font-bold"
+               :style="{ color: 'var(--text-color)' }">
               ${{ product.price }}
             </p>
-            <p
-              v-if="product.discountPercentage"
-              class="text-sm bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 px-2 py-1 rounded-full"
-            >
+            <p v-if="product.discountPercentage"
+               class="text-sm px-2 py-1 rounded-full"
+               style="background-color:#fee2e2; color:#dc2626;">
               -{{ product.discountPercentage.toFixed(1) }}%
             </p>
           </div>
 
-          <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-6">
+          <div class="flex items-center gap-4 text-sm mb-6"
+               :style="{ color: 'var(--secondary-text)' }">
             <span>⭐ {{ product.rating }} ({{ product.reviews?.length }} reviews)</span>
             <span>📦 {{ product.availabilityStatus }}</span>
           </div>
 
-          <div class="border-t border-b border-gray-200 dark:border-gray-700 py-4 my-6">
-            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+          <div class="py-4 my-6 border-t border-b"
+               :style="{ borderColor: 'var(--border-color)' }">
+            <p :style="{ color: 'var(--text-color)' }">
               {{ product.description }}
             </p>
           </div>
@@ -78,31 +87,32 @@
           <!-- Info Tambahan -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
             <div>
-              <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">📦 Shipping</h3>
-              <p class="text-gray-600 dark:text-gray-400">{{ product.shippingInformation }}</p>
+              <h3 class="font-semibold mb-2" :style="{ color: 'var(--text-color)' }">📦 Shipping</h3>
+              <p :style="{ color: 'var(--secondary-text)' }">{{ product.shippingInformation }}</p>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">🔧 Warranty</h3>
-              <p class="text-gray-600 dark:text-gray-400">{{ product.warrantyInformation }}</p>
+              <h3 class="font-semibold mb-2" :style="{ color: 'var(--text-color)' }">🔧 Warranty</h3>
+              <p :style="{ color: 'var(--secondary-text)' }">{{ product.warrantyInformation }}</p>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">🏷️ SKU</h3>
-              <p class="text-gray-600 dark:text-gray-400 font-mono text-xs">{{ product.sku }}</p>
+              <h3 class="font-semibold mb-2" :style="{ color: 'var(--text-color)' }">🏷️ SKU</h3>
+              <p class="font-mono text-xs" :style="{ color: 'var(--secondary-text)' }">{{ product.sku }}</p>
             </div>
             <div>
-              <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">⚖️ Weight</h3>
-              <p class="text-gray-600 dark:text-gray-400">{{ product.weight }} kg</p>
+              <h3 class="font-semibold mb-2" :style="{ color: 'var(--text-color)' }">⚖️ Weight</h3>
+              <p :style="{ color: 'var(--secondary-text)' }">{{ product.weight }} kg</p>
             </div>
           </div>
 
           <!-- Tags -->
           <div v-if="product.tags?.length" class="mt-6">
-            <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Tags</h3>
+            <h3 class="text-sm font-semibold mb-2" :style="{ color: 'var(--text-color)' }">Tags</h3>
             <div class="flex flex-wrap gap-2">
               <span
                 v-for="tag in product.tags"
                 :key="tag"
-                class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs"
+                class="px-3 py-1 rounded-full text-xs"
+                :style="{ backgroundColor: 'var(--border-color)', color: 'var(--text-color)' }"
               >
                 #{{ tag }}
               </span>
@@ -113,10 +123,11 @@
 
       <!-- Error State -->
       <div v-else class="text-center py-10">
-        <p class="text-xl text-red-500">Product not found</p>
+        <p class="text-xl" style="color:red">Product not found</p>
         <button
           @click="$router.back()"
-          class="mt-4 px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
+          class="mt-4 px-6 py-2 rounded-lg"
+          :style="{ backgroundColor: 'var(--primary-text)', color: '#fff' }"
         >
           ← Back
         </button>
@@ -124,6 +135,7 @@
     </div>
   </AppLayout>
 </template>
+
 
 <script setup>
 import { ref, onMounted } from 'vue';
