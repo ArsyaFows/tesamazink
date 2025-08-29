@@ -6,28 +6,58 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 overflow-x-hidden">
   <h2 class="text-2xl font-semibold mb-6" style="color: var(--text-color);"> Users Management</h2>
 
-  <!-- Search & Filter -->
-  <div class="flex flex-wrap gap-4 mb-6 sm:flex-nowrap">
-    <div class="flex-1 min-w-[200px] w-full">
-      <input
-        v-model="search"
-        @input="debouncedFetch"
-        placeholder="🔍 Search by name, email, etc."
-        class="w-full px-4 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-500 transition"
-      />
-    </div>
-    <div class="min-w-[140px] w-full sm:w-auto">
-      <select
-        v-model="genderFilter"
-        @change="debouncedFetch"
-        class="appearance-none bg-gray-100 text-gray-700 border border-gray-300 rounded-xl px-5 py-3 pr-10 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 transition-all duration-200 hover:border-blue-400 cursor-pointer min-w-[160px] text-sm"
-        >
-        <option value="">All Genders</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
+
+
+<!-- Search & Filter -->
+<div class="flex flex-wrap gap-4 mb-6">
+  <!-- Search Input -->
+  <div class="flex-1 min-w-[200px] w-full relative">
+    <input
+      v-model="search"
+      @input="debouncedFetch"
+      placeholder="Search by name, email, etc."
+      class="w-full px-4 py-3 pl-10 rounded-xl shadow-sm focus:outline-none focus:ring-2 transition-all duration-200 text-sm"
+      :style="{
+        backgroundColor: 'var(--header-bg)',
+        color: 'var(--text-color)',
+        borderColor: 'var(--border-color)'
+      }"
+    />
+    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+           :style="{ color: 'var(--secondary-text)' }">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
     </div>
   </div>
+
+  <!-- Gender Filter -->
+  <div class="min-w-[140px] w-full sm:w-auto relative">
+    <select
+      v-model="genderFilter"
+      @change="debouncedFetch"
+      class="appearance-none rounded-xl px-5 py-3 pr-10 shadow-sm focus:outline-none focus:ring-2 cursor-pointer min-w-[160px] text-sm"
+      :style="{
+        backgroundColor: 'var(--header-bg)',
+        color: 'var(--text-color)',
+        borderColor: 'var(--border-color)'
+      }"
+    >
+      <option value="">All Genders</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+
+    <!-- Custom Dropdown Arrow -->
+    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+           :style="{ color: 'var(--secondary-text)' }">
+        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+      </svg>
+    </div>
+  </div>
+</div>
+
 
 <!-- Table Wrapper -->
 <div class="overflow-x-auto rounded-xl shadow-lg transition-all duration-300"

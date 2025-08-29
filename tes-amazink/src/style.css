@@ -35,6 +35,7 @@
   --smartphones-text: #3730a3; /* indigo-800 */
   --accessories-bg: #f3f4f6;   /* gray-100 */
   --accessories-text: #1f2937; /* gray-800 */
+  
 }
 
 [data-theme="dark"] {

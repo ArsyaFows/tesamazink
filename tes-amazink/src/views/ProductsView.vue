@@ -3,53 +3,76 @@
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 ml-15">
         <h2 class="text-2xl font-semibold mb-6" style="color: var(--text-color);"> Products Management</h2>
   
-<!-- Search dan Filter -->
+<!-- Search & Filter 2 (disamakan design dengan search 1) -->
 <div class="search-filter-container flex flex-col gap-4 mb-6">
-  <!-- Search bar tetap di atas -->
-  <div class="flex-1 min-w-60">
+  <!-- Search Input -->
+  <div class="flex-1 min-w-60 relative">
     <input
       v-model="search"
       @input="debouncedFetch"
-      placeholder="🔍 Search products..."
-      class="w-full px-4 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-500 transition"
+      placeholder="Search products..."
+      class="w-full px-4 py-3 pl-10 rounded-xl shadow-sm focus:outline-none focus:ring-2 transition-all duration-200 text-sm"
+      :style="{
+        backgroundColor: 'var(--header-bg)',
+        color: 'var(--text-color)',
+        borderColor: 'var(--border-color)'
+      }"
     />
+    <!-- Search Icon -->
+    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+           :style="{ color: 'var(--secondary-text)' }">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </div>
   </div>
 
   <!-- Button + Category Filter -->
   <div class="flex flex-wrap gap-4 buttons-category">
-    <div>
-      <button
-        @click="openForm()"
-        class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow transition"
-      >
-        ➕ Add Product
-      </button>
-    </div>
-
-<div class="relative inline-block">
-  <select
-    v-model="categoryFilter"
-    @change="debouncedFetch"
-    class="appearance-none bg-gray-100 text-gray-700 border border-gray-300 rounded-xl px-5 py-3 pr-10 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 transition-all duration-200 hover:border-blue-400 cursor-pointer min-w-[160px] text-sm"
+<!-- Button + Category Filter -->
+  <div>
+    <button
+      @click="openForm()"
+      class="px-5 py-3 font-medium rounded-lg shadow transition"
+      :style="{
+        background: 'linear-gradient(to right, var(--primary-bg), var(--primary-hover) )',
+        color: '#fff'
+      }"
     >
-    <option value="">All Categories</option>
-    <option value="laptops">Laptops</option>
-    <option value="fragrances">Fragrances</option>
-    <option value="groceries">Groceries</option>
-    <option value="furniture">Furniture</option>
-    <option value="beauty">Beauty</option>
-  </select>
-
-  <!-- Custom Dropdown Arrow -->
-  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 dark:text-gray-400">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-    </svg>
-  </div>
-</div>
-  </div>
+      + Add Product
+    </button>
 </div>
 
+<!-- Category Filter -->
+<div class="relative inline-block">
+    <select
+      v-model="categoryFilter"
+      @change="debouncedFetch"
+      class="appearance-none rounded-xl px-5 py-3 pr-10 shadow-sm focus:outline-none focus:ring-2 cursor-pointer min-w-[160px] text-sm transition-all duration-200"
+      :style="{
+        backgroundColor: 'var(--header-bg)',
+        color: 'var(--text-color)',
+        borderColor: 'var(--border-color)'
+      }"
+    >
+      <option value="">All Categories</option>
+      <option value="laptops">Laptops</option>
+      <option value="fragrances">Fragrances</option>
+      <option value="groceries">Groceries</option>
+      <option value="furniture">Furniture</option>
+      <option value="beauty">Beauty</option>
+    </select>
+
+    <!-- Custom Dropdown Arrow -->
+    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+           :style="{ color: 'var(--secondary-text)' }">
+        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+      </svg>
+    </div>
+  </div>
+</div>
+</div>
 
   
 <!-- Table Container -->
@@ -230,7 +253,7 @@
               <button
                 type="button"
                 @click="showForm = false"
-                class="flex-1 bg-gray-400 hover:bg-gray-500 text-white font-medium py-2 rounded-lg transition"
+                class="flex-1 bg-red-400 hover:bg-red-500 text-white font-medium py-2 rounded-lg transition"
               >
                 Cancel
               </button>
