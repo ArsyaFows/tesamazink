@@ -1,16 +1,26 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --bg-color: #ededed;
+  --text-color: rgba(0,0,0,0.87);
+  --header-bg: #ffffff;
+  --sidebar-bg: #ffffff;
+  --main-bg: #f9f9f9;
+  --primary-text: #1d4ed8; /* buat gradient / aksen */
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #ededed;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+[data-theme="dark"] {
+  --bg-color: #111827;        /* background global */
+  --text-color: rgba(255,255,255,0.87); /* teks utama */
+  --header-bg: #1f2937;       /* sedikit lebih terang biar header keliatan */
+  --sidebar-bg: #1e293b;      /* biru keabu-abuan biar sidebar beda */
+  --main-bg: #111827;         /* content utama tetep gelap */
+  --primary-text: #3b82f6;    /* biru (tailwind blue-500) buat highlight */
+  --secondary-text: #9ca3af;  /* abu-abu terang untuk teks sekunder */
+  --border-color: #374151;    /* warna border lembut */
 }
 
 
+body {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color);
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}

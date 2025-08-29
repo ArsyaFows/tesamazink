@@ -4,7 +4,7 @@
     <AppLayout @logout="handleLogout">
 <!-- Wrapper container supaya cuma satu scroll -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 overflow-x-hidden">
-  <h2 class="text-2xl font-semibold text-gray-800 mb-6">User Management</h2>
+  <h2 class="text-2xl font-semibold mb-6" style="color: var(--text-color);"> Management</h2>
 
   <!-- Search & Filter -->
   <div class="flex flex-wrap gap-4 mb-6 sm:flex-nowrap">

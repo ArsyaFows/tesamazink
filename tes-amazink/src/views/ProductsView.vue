@@ -1,13 +1,12 @@
 <template>
     <AppLayout @logout="handleLogout">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Product Management</h2>
+        <h2 class="text-2xl font-semibold mb-6" style="color: var(--text-color);"> Management</h2>
   
 <!-- Search dan Filter -->
 <div class="search-filter-container flex flex-col gap-4 mb-6">
   <!-- Search bar tetap di atas -->
   <div class="flex-1 min-w-60">
-    <label class="block text-sm font-medium text-gray-700 mb-1">Search</label>
     <input
       v-model="search"
       @input="debouncedFetch"
@@ -17,7 +16,7 @@
   </div>
 
   <!-- Button + Category Filter -->
-  <div class="flex flex-wrap gap-4 mt-6 buttons-category">
+  <div class="flex flex-wrap gap-4 buttons-category">
     <div>
       <button
         @click="openForm()"
