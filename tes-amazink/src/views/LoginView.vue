@@ -175,7 +175,6 @@ const handleLogin = async () => {
 </script>
 
 <style scoped>
-/* Disable scroll globally */
 :deep(body), :deep(html) {
   overflow: hidden !important;
   height: 100vh;
@@ -183,7 +182,6 @@ const handleLogin = async () => {
   padding: 0;
 }
 
-/* Optional: Fade in animation */
 @keyframes fadeIn {
   from {
     opacity: 0;

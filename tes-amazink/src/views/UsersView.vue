@@ -190,10 +190,9 @@
   const limit = 10;
   const search = ref("");
   const genderFilter = ref("");
-  const totalUsers = ref(0); // simpan total user
+  const totalUsers = ref(0);
   const totalPages = ref(1);
-  
-  // Fetch users
+
   const fetchUsers = async () => {
   try {
     let url = `https://dummyjson.com/users?limit=${limit}&skip=${(page.value - 1) * limit}`;
@@ -208,7 +207,7 @@
         filtered = filtered.filter(u => u.gender === genderFilter.value);
       }
 
-      totalUsers.value = filtered.length; // ✅ update total user
+      totalUsers.value = filtered.length;
       totalPages.value = Math.ceil(totalUsers.value / limit);
 
       const start = (page.value - 1) * limit;
@@ -217,7 +216,7 @@
     } else {
       const res = await axios.get(url);
       users.value = res.data.users;
-      totalUsers.value = res.data.total; // ✅ API kasih total
+      totalUsers.value = res.data.total;
       totalPages.value = Math.ceil(totalUsers.value / limit);
     }
   } catch (error) {
@@ -245,7 +244,6 @@
   
   onMounted(fetchUsers);
   
-  // 🔒 Logout handler
   const auth = useAuthStore();
   const router = useRouter();
   const handleLogout = () => {
@@ -256,7 +254,6 @@
   </script>
   
   <style scoped>
-  /* Tabel mengecil otomatis di bawah 1000px */
   @media (max-width: 1200px) {
 
   }

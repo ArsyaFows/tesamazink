@@ -7,34 +7,31 @@
   --main-bg: #f9f9f9;
   --border-color: #e5e7eb;
 
-  /* warna aksen biru (light mode) */
-  --primary-text: #1d4ed8;   /* blue-700 */
-  --primary-bg: #2563eb;     /* blue-600 */
-  --primary-hover: #1e40af;  /* blue-800 */
+  --primary-text: #1d4ed8;
+  --primary-bg: #2563eb;   
+  --primary-hover: #1e40af;
 
-  /* badge user */
-  --male-bg: #dbeafe;   /* blue-100 */
-  --male-text: #1e40af; /* blue-800 */
-  --female-bg: #fce7f3;   /* pink-100 */
-  --female-text: #9d174d; /* pink-800 */
-  --other-bg: #f3f4f6;   /* gray-100 */
-  --other-text: #1f2937; /* gray-800 */
+  --male-bg: #dbeafe;  
+  --male-text: #1e40af;
+  --female-bg: #fce7f3; 
+  --female-text: #9d174d; 
+  --other-bg: #f3f4f6;  
+  --other-text: #1f2937; 
 
-  /* badge kategori (light mode) */
-  --beauty-bg: #fce7f3;   /* pink-100 */
-  --beauty-text: #9d174d; /* pink-800 */
-  --fragrances-bg: #f3e8ff;   /* purple-100 */
-  --fragrances-text: #6b21a8; /* purple-800 */
-  --furniture-bg: #fef3c7;   /* amber-100 */
-  --furniture-text: #92400e; /* amber-800 */
-  --groceries-bg: #dcfce7;   /* green-100 */
-  --groceries-text: #166534; /* green-800 */
-  --laptops-bg: #dbeafe;   /* blue-100 */
-  --laptops-text: #1e40af; /* blue-800 */
-  --smartphones-bg: #e0e7ff;   /* indigo-100 */
-  --smartphones-text: #3730a3; /* indigo-800 */
-  --accessories-bg: #f3f4f6;   /* gray-100 */
-  --accessories-text: #1f2937; /* gray-800 */
+  --beauty-bg: #fce7f3;  
+  --beauty-text: #9d174d; 
+  --fragrances-bg: #f3e8ff;  
+  --fragrances-text: #6b21a8;
+  --furniture-bg: #fef3c7;   
+  --furniture-text: #92400e;
+  --groceries-bg: #dcfce7;  
+  --groceries-text: #166534; 
+  --laptops-bg: #dbeafe; 
+  --laptops-text: #1e40af; 
+  --smartphones-bg: #e0e7ff;  
+  --smartphones-text: #3730a3;
+  --accessories-bg: #f3f4f6; 
+  --accessories-text: #1f2937;
   
 }
 
@@ -47,12 +44,10 @@
   --main-bg: #111827;
   --border-color: #374151;
 
-  /* warna aksen biru (dark mode, lebih soft) */
-  --primary-text: #3b82f6;   /* blue-500 */
-  --primary-bg: #60a5fa;     /* blue-400 */
-  --primary-hover: #2563eb;  /* blue-600 */
+  --primary-text: #3b82f6;  
+  --primary-bg: #60a5fa;     
+  --primary-hover: #2563eb; 
 
-  /* badge user (dark mode) */
   --male-bg: #1e3a8a;
   --male-text: #93c5fd;
   --female-bg: #831843;
@@ -60,7 +55,6 @@
   --other-bg: #374151;
   --other-text: #d1d5db;
 
-  /* badge kategori (dark mode) */
   --beauty-bg: #9d174d;
   --beauty-text: #f9a8d4;
   --fragrances-bg: #4c1d95;

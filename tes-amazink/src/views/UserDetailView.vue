@@ -38,7 +38,6 @@
       </div>
     </div>
 
-    <!-- Info Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5" :style="{ color: 'var(--text-color)' }">
       <DetailItem label="Age" :value="user.age" icon="🎂" />
       <DetailItem label="Gender" :value="user.gender" icon="⚧️" />
@@ -95,7 +94,6 @@
   import axios from "axios";
   import AppLayout from "./AppLayout.vue";
   
-  // Komponen DetailItem Inline
   const DetailItem = {
     props: ["label", "value", "icon"],
     template: `
@@ -112,7 +110,6 @@
   
   onMounted(async () => {
     try {
-      // ✅ Perbaiki: Hilangkan spasi ekstra di URL
       const res = await axios.get(`https://dummyjson.com/users/${route.params.id}`);
       user.value = res.data;
     } catch (error) {

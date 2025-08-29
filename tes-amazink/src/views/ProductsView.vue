@@ -3,7 +3,7 @@
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 ml-15">
         <h2 class="text-2xl font-semibold mb-6" style="color: var(--text-color);"> Products Management</h2>
   
-<!-- Search & Filter 2 (disamakan design dengan search 1) -->
+<!-- Search & Filter -->
 <div class="search-filter-container flex flex-col gap-4 mb-6">
   <!-- Search Input -->
   <div class="flex-1 min-w-60 relative">
@@ -27,7 +27,6 @@
     </div>
   </div>
 
-  <!-- Button + Category Filter -->
   <div class="flex flex-wrap gap-4 buttons-category">
 <!-- Button + Category Filter -->
   <div>
@@ -276,15 +275,14 @@
   const page = ref(1);
   const limit = 9;
   const search = ref("");
-  const categoryFilter = ref(""); // ✅ Tambahkan ref untuk filter
+  const categoryFilter = ref("");
   const showForm = ref(false);
   const editData = ref(null);
   const form = ref({ title: "", brand: "", price: 0 });
   
-  // Fetch Products
   const fetchProducts = async () => {
     try {
-      let url = `https://dummyjson.com/products?limit=100&skip=0`; // Ambil semua produk sekali
+      let url = `https://dummyjson.com/products?limit=100&skip=0`;
       const res = await axios.get(url);
       products.value = res.data.products;
     } catch (error) {
@@ -293,11 +291,9 @@
     }
   };
 
-  // Gunakan computed untuk filter dan pagination
   const displayedProducts = computed(() => {
     let filtered = products.value;
   
-    // Filter by search
     if (search.value.trim()) {
       const query = search.value.toLowerCase();
       filtered = filtered.filter(p =>
@@ -307,19 +303,17 @@
       );
     }
   
-    // Filter by category
     if (categoryFilter.value) {
       filtered = filtered.filter(p => p.category === categoryFilter.value);
     }
   
-    // Pagination
     const start = (page.value - 1) * limit;
     const end = start + limit;
     return filtered.slice(start, end);
   });
   
   const debouncedFetch = debounce(() => {
-    page.value = 1; // Reset ke halaman 1 saat search/filter berubah
+    page.value = 1; 
     fetchProducts();
   }, 400);
   
@@ -329,7 +323,6 @@
   }
 };
 
-  // Hitung total halaman
   const totalPages = computed(() => {
   return Math.max(1, Math.ceil(computedTotal.value / limit));
 });
@@ -341,7 +334,6 @@
     }
   };
   
-  // Hitung total hasil setelah filter
   const computedTotal = computed(() => {
     let filtered = products.value;
   
@@ -361,7 +353,6 @@
     return filtered.length;
   });
   
-  // Form Logic
   const openForm = () => {
     editData.value = null;
     form.value = { title: "", brand: "", price: 0 };
@@ -377,15 +368,12 @@
   const saveProduct = async () => {
     try {
       if (editData.value) {
-        // Update product (dummy API hanya simulasi)
         await axios.put(`https://dummyjson.com/products/${editData.value.id}`, form.value);
         alert("✅ Product updated successfully!");
-        // Update lokal
         Object.assign(editData.value, form.value);
       } else {
-        // Simulasi tambah produk (tidak nyata, karena API dummy tidak menyimpan)
         const newProduct = {
-          id: Date.now(), // ID sementara
+          id: Date.now(),
           ...form.value,
           rating: 4.5,
           stock: 50,
@@ -405,7 +393,6 @@
   
   onMounted(fetchProducts);
   
-  // 🔒 Logout handler
   const auth = useAuthStore();
   const router = useRouter();
   const handleLogout = () => {
@@ -427,14 +414,12 @@
   </script>
   
   <style scoped>
-  /* Default: horizontal (side by side) */
   .search-filter-container {
     display: flex;
     flex-direction: row;
     gap: 1rem;
   }
   
-  /* Button + Category tetap vertikal di bawah Search saat < 1000px */
   @media (max-width: 1000px) {
     .search-filter-container {
       flex-direction: column;

@@ -1,7 +1,6 @@
 <template>
   <AppLayout>
     <div class="px-6 py-8 max-w-6xl mx-auto ml-20">
-      <!-- Loading State -->
       <div v-if="loading" class="animate-pulse">
         <div class="h-10 rounded-lg mb-6 w-48 " 
              :style="{ backgroundColor: 'var(--border-color)' }"></div>
@@ -147,7 +146,6 @@ const product = ref(null);
 const loading = ref(true);
 const route = useRoute();
 
-// Warna kategori
 const getCategoryColor = (category) => {
   const colors = {
     beauty: 'bg-pink-500',

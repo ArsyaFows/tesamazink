@@ -1,5 +1,4 @@
 <template>
-  <!-- Navbar -->
   <header 
     :style="{ backgroundColor: 'var(--header-bg)', color: 'var(--text-color)', borderColor: 'var(--border-color)' }" 
     class="shadow-sm border-b fixed top-0 left-0 right-0 z-20"
@@ -14,7 +13,6 @@
       </div>
 
       <div class="flex items-center gap-4">
-        <!-- Button menu (mobile only) -->
         <button v-if="isAuthenticated" @click="toggleMenu" 
           class="md:hidden p-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white">
           ☰
@@ -25,14 +23,14 @@
   @click="toggleDarkMode" 
   :class="[
     'px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white',
-    isAuthenticated ? 'hidden md:block' : ''   // kalau login ikutin responsive, kalau belum login selalu tampil
+    isAuthenticated ? 'hidden md:block' : '' 
   ]"
 >
   {{ darkMode ? '☀️ Light' : '🌙 Dark' }}
 </button>
 
 
-        <!-- Logout desktop (hanya jika login) -->
+        <!-- Logout desktop -->
         <button 
           v-if="isAuthenticated"
           @click="$emit('logout')" 
@@ -85,7 +83,7 @@
     </div>
   </header>
 
-  <!-- Sidebar desktop (hanya muncul kalau login) -->
+  <!-- Sidebar desktop -->
   <aside 
     v-if="isAuthenticated"
     :style="{ backgroundColor: 'var(--sidebar-bg)', color: 'var(--text-color)', borderColor: 'var(--border-color)' }" 
@@ -145,7 +143,6 @@ const handleResize = () => {
 onMounted(() => {
   window.addEventListener('resize', handleResize)
 
-  // cek localStorage
   const savedTheme = localStorage.getItem('theme') || 'light'
   document.documentElement.setAttribute('data-theme', savedTheme)
   darkMode.value = savedTheme === 'dark'
