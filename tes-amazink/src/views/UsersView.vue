@@ -20,8 +20,8 @@
       <select
         v-model="genderFilter"
         @change="debouncedFetch"
-        class="w-full sm:w-auto px-4 py-2 border border-gray-300 text-gray-700 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-500 transition"
-      >
+        class="appearance-none bg-gray-100 text-gray-700 border border-gray-300 rounded-xl px-5 py-3 pr-10 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 transition-all duration-200 hover:border-blue-400 cursor-pointer min-w-[160px] text-sm"
+        >
         <option value="">All Genders</option>
         <option value="male">Male</option>
         <option value="female">Female</option>

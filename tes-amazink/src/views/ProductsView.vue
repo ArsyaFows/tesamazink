@@ -26,20 +26,27 @@
       </button>
     </div>
 
-    <div>
-      <select
-        v-model="categoryFilter"
-        @change="debouncedFetch"
-        class="px-5 py-3 border border-gray-300 text-gray-700 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-500 transition min-w-[140px]"
-      >
-        <option value="">All Categories</option>
-        <option value="laptops">Laptops</option>
-        <option value="fragrances">Fragrances</option>
-        <option value="groceries">Groceries</option>
-        <option value="furniture">Furniture</option>
-        <option value="beauty">Beauty</option>
-      </select>
-    </div>
+<div class="relative inline-block">
+  <select
+    v-model="categoryFilter"
+    @change="debouncedFetch"
+    class="appearance-none bg-gray-100 text-gray-700 border border-gray-300 rounded-xl px-5 py-3 pr-10 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 transition-all duration-200 hover:border-blue-400 cursor-pointer min-w-[160px] text-sm"
+    >
+    <option value="">All Categories</option>
+    <option value="laptops">Laptops</option>
+    <option value="fragrances">Fragrances</option>
+    <option value="groceries">Groceries</option>
+    <option value="furniture">Furniture</option>
+    <option value="beauty">Beauty</option>
+  </select>
+
+  <!-- Custom Dropdown Arrow -->
+  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 dark:text-gray-400">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+    </svg>
+  </div>
+</div>
   </div>
 </div>
 
@@ -140,7 +147,7 @@
                 v-model="form.title"
                 type="text"
                 placeholder="Enter product title"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+                class="w-full px-4 text-black py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
                 required
               />
             </div>
@@ -151,7 +158,7 @@
                 v-model="form.brand"
                 type="text"
                 placeholder="Enter brand"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+                class="w-full px-4 text-black py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
                 required
               />
             </div>
@@ -161,10 +168,10 @@
               <input
                 v-model.number="form.price"
                 type="number"
-                step="0.01"
+                step="1"
                 min="0"
                 placeholder="Enter price"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+                class="w-full px-4 text-black py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
                 required
               />
             </div>
