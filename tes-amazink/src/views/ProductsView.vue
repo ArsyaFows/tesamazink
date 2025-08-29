@@ -1,7 +1,7 @@
 <template>
     <AppLayout @logout="handleLogout">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <h2 class="text-2xl font-semibold mb-6" style="color: var(--text-color);"> Management</h2>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 ml-15">
+        <h2 class="text-2xl font-semibold mb-6" style="color: var(--text-color);"> Products Management</h2>
   
 <!-- Search dan Filter -->
 <div class="search-filter-container flex flex-col gap-4 mb-6">
@@ -53,46 +53,89 @@
 
   
 <!-- Table Container -->
-<div class="bg-white rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.1)] border border-gray-200 overflow-x-auto">
+<div class="overflow-x-auto rounded-xl shadow-lg transition-all duration-300"
+     :style="{ backgroundColor: 'var(--header-bg)', borderColor: 'var(--border-color)' }">
   <table class="w-full table-auto border-collapse min-w-[800px]">
-    <thead class="bg-gray-50 text-gray-700 uppercase text-sm">
+    <!-- Table Header -->
+    <thead :style="{ backgroundColor: 'var(--main-bg)', color: 'var(--secondary-text)' }"
+           class="uppercase text-xs font-semibold tracking-wide">
       <tr>
-        <th class="px-6 py-4 text-left font-medium min-w-[180px]">Title</th>
-        <th class="px-6 py-4 text-left font-medium min-w-[120px]">Brand</th>
-        <th class="px-6 py-4 text-left font-medium min-w-[100px]">Price</th>
-        <th class="px-6 py-4 text-left font-medium min-w-[120px]">Category</th>
-        <th class="px-6 py-4 text-left font-medium w-32">Action</th>
+        <th class="px-6 py-4 text-left rounded-tl-lg">Title</th>
+        <th class="px-6 py-4 text-left">Brand</th>
+        <th class="px-6 py-4 text-left">Price</th>
+        <th class="px-6 py-4 text-left">Category</th>
+        <th class="px-6 py-4 text-left rounded-tr-lg">Action</th>
       </tr>
     </thead>
-    <tbody class="divide-y divide-gray-200">
+
+    <!-- Table Body -->
+    <tbody :style="{ color: 'var(--text-color)' }" class="divide-y"
+           :class="'divide-[var(--border-color)]'">
       <tr
         v-for="p in displayedProducts"
         :key="p.id"
-        class="hover:bg-gray-50 transition duration-150"
+        class="transition-all duration-200 hover:shadow-sm hover:translate-y-[-1px]"
+        :style="{ backgroundColor: 'transparent' }"
+        @mouseover="e => e.currentTarget.style.backgroundColor = 'var(--main-bg)'"
+        @mouseleave="e => e.currentTarget.style.backgroundColor = 'transparent'"
       >
-        <td class="px-6 py-4 font-medium text-gray-900 max-w-xs truncate" :title="p.title">
-          {{ p.title }}
+        <!-- Title -->
+        <td class="px-6 py-4 font-medium max-w-xs" :style="{ color: 'var(--text-color)' }">
+          <span class="truncate block" :title="p.title">
+            {{ p.title }}
+          </span>
         </td>
-        <td class="px-6 py-4 text-gray-600 truncate" :title="p.brand || '—'">
+
+        <!-- Brand -->
+        <td class="px-6 py-4" :style="{ color: 'var(--secondary-text)' }">
           {{ p.brand || '—' }}
         </td>
-        <td class="px-6 py-4 text-gray-700 font-semibold">
+
+        <!-- Price -->
+        <td class="px-6 py-4 font-semibold" :style="{ color: 'var(--text-color)' }">
           ${{ p.price.toFixed(2) }}
         </td>
-        <td class="px-6 py-4 text-gray-600 capitalize">
-          {{ p.category }}
+
+        <!-- Category -->
+        <td class="px-6 py-4">
+          <span
+            class="px-3 py-1 rounded-full text-xs font-medium capitalize inline-block"
+            :style="getCategoryColor(p.category)"
+          >
+            {{ p.category }}
+          </span>
         </td>
+
+        <!-- Action Buttons -->
         <td class="px-6 py-4 space-x-2 whitespace-nowrap">
+          <!-- Detail Button -->
           <router-link
             :to="`/products/${p.id}`"
-            class="text-blue-600 hover:text-blue-800 font-medium hover:underline text-sm"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg shadow-sm transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2"
+            :style="{
+              background: 'linear-gradient(to right, var(--primary-bg), var(--primary-hover))',
+              color: '#fff'
+            }"
           >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
             Detail
           </router-link>
+
+          <!-- Edit Button -->
           <button
             @click="editProduct(p)"
-            class="text-green-600 hover:text-green-800 font-medium hover:underline text-sm"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg shadow-sm transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2"
+            :style="{
+              background: 'linear-gradient(to right, #22c55e, #16a34a)',
+              color: '#fff'
+            }"
           >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
             Edit
           </button>
         </td>
@@ -100,6 +143,7 @@
     </tbody>
   </table>
 </div>
+
 
   
 <!-- Pagination -->
@@ -225,7 +269,7 @@
       products.value = [];
     }
   };
-  
+
   // Gunakan computed untuk filter dan pagination
   const displayedProducts = computed(() => {
     let filtered = products.value;
@@ -345,6 +389,18 @@
     auth.logout();
     router.push("/login");
   };
+  const getCategoryColor = (category) => {
+  const colors = {
+    beauty: 'bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-300',
+    fragrances: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
+    furniture: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
+    groceries: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
+    laptops: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
+    smartphones: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300',
+    'smartphones-accessories': 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300',
+  };
+  return colors[category] || 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
+};
   </script>
   
   <style scoped>
