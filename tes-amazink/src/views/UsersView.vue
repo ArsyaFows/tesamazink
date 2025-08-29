@@ -31,31 +31,32 @@
     </div>
   </div>
 
-  <!-- Gender Filter -->
-  <div class="min-w-[140px] w-full sm:w-auto relative">
-    <select
-      v-model="genderFilter"
-      @change="debouncedFetch"
-      class="appearance-none rounded-xl px-5 py-3 pr-10 shadow-sm focus:outline-none focus:ring-2 cursor-pointer min-w-[160px] text-sm"
-      :style="{
-        backgroundColor: 'var(--header-bg)',
-        color: 'var(--text-color)',
-        borderColor: 'var(--border-color)'
-      }"
-    >
-      <option value="">All Genders</option>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-    </select>
+<!-- Gender Filter -->
+<div class="min-w-[140px] w-full sm:w-auto relative">
+  <select
+    v-model="genderFilter"
+    @change="debouncedFetch"
+    class="appearance-none rounded-xl px-5 py-3 pr-10 shadow-sm focus:outline-none focus:ring-2 cursor-pointer min-w-[160px] text-sm w-full"
+    :style="{
+      backgroundColor: 'var(--header-bg)',
+      color: 'var(--text-color)',
+      borderColor: 'var(--border-color)'
+    }"
+  >
+    <option value="">All Genders</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
 
-    <!-- Custom Dropdown Arrow -->
-    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
-           :style="{ color: 'var(--secondary-text)' }">
-        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-      </svg>
-    </div>
+  <!-- Custom Dropdown Arrow -->
+  <div class="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"
+         :style="{ color: 'var(--secondary-text)' }">
+      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+    </svg>
   </div>
+</div>
+
 </div>
 
 
