@@ -59,27 +59,29 @@
   </div>
 
 
+<!-- Pagination -->
+<div class="flex flex-wrap justify-center gap-4 mt-6 items-center">
+  <button
+    @click="prevPage"
+    :disabled="page === 1"
+    class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
+  >
+    ← Prev
+  </button>
 
-  
+  <span class="text-lg font-medium text-gray-700">
+    Page {{ page }} of {{ totalPages }}
+  </span>
 
-  
-        <!-- Pagination -->
-        <div class="flex flex-wrap justify-center gap-4 mt-6">
-          <button
-            @click="prevPage"
-            :disabled="page === 1"
-            class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition disabled:opacity-50"
-          >
-            ← Prev
-          </button>
-          <span class="text-lg font-medium text-gray-700">Page {{ page }}</span>
-          <button
-            @click="nextPage"
-            class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition"
-          >
-            Next →
-          </button>
-        </div>
+  <button
+    @click="nextPage"
+    :disabled="page === totalPages"
+    class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
+  >
+    Next →
+  </button>
+</div>
+
       </div>
     </AppLayout>
   </template>
@@ -97,34 +99,44 @@
   const limit = 10;
   const search = ref("");
   const genderFilter = ref("");
+  const totalUsers = ref(0); // simpan total user
+  const totalPages = ref(1);
   
   // Fetch users
   const fetchUsers = async () => {
-    try {
-      let url = `https://dummyjson.com/users?limit=${limit}&skip=${(page.value - 1) * limit}`;
-  
-      if (search.value.trim() || genderFilter.value) {
-        const params = new URLSearchParams();
-        if (search.value.trim()) params.append("q", search.value);
-        const res = await axios.get(`https://dummyjson.com/users/search?${params}`);
-        let filtered = res.data.users;
-  
-        if (genderFilter.value) {
-          filtered = filtered.filter(u => u.gender === genderFilter.value);
-        }
-  
-        const start = (page.value - 1) * limit;
-        const end = start + limit;
-        users.value = filtered.slice(start, end);
-      } else {
-        const res = await axios.get(url);
-        users.value = res.data.users;
+  try {
+    let url = `https://dummyjson.com/users?limit=${limit}&skip=${(page.value - 1) * limit}`;
+
+    if (search.value.trim() || genderFilter.value) {
+      const params = new URLSearchParams();
+      if (search.value.trim()) params.append("q", search.value);
+      const res = await axios.get(`https://dummyjson.com/users/search?${params}`);
+      let filtered = res.data.users;
+
+      if (genderFilter.value) {
+        filtered = filtered.filter(u => u.gender === genderFilter.value);
       }
-    } catch (error) {
-      console.error("Failed to fetch users:", error);
-      users.value = [];
+
+      totalUsers.value = filtered.length; // ✅ update total user
+      totalPages.value = Math.ceil(totalUsers.value / limit);
+
+      const start = (page.value - 1) * limit;
+      const end = start + limit;
+      users.value = filtered.slice(start, end);
+    } else {
+      const res = await axios.get(url);
+      users.value = res.data.users;
+      totalUsers.value = res.data.total; // ✅ API kasih total
+      totalPages.value = Math.ceil(totalUsers.value / limit);
     }
-  };
+  } catch (error) {
+    console.error("Failed to fetch users:", error);
+    users.value = [];
+    totalUsers.value = 0;
+    totalPages.value = 1;
+  }
+};
+
   
   const debouncedFetch = debounce(fetchUsers, 400);
   
@@ -149,6 +161,7 @@
     auth.logout();
     router.push("/login");
   };
+
   </script>
   
   <style scoped>

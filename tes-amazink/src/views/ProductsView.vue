@@ -95,24 +95,32 @@
 </div>
 
   
-        <!-- Pagination -->
-        <div class="flex flex-wrap justify-center gap-4 mt-6">
-          <button
-            @click="prevPage"
-            :disabled="page === 1"
-            class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition disabled:opacity-50"
-          >
-            ← Prev
-          </button>
-          <span class="text-lg font-medium text-gray-700">Page {{ page }}</span>
-          <button
-            @click="nextPage"
-            :disabled="page === 12"
-            class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition disabled:opacity-50"
-          >
-            Next →
-          </button>
-        </div>
+<!-- Pagination -->
+<div class="flex flex-wrap justify-center gap-4 mt-6 items-center">
+  <button
+    @click="prevPage"
+    :disabled="page === 1"
+    class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition 
+           disabled:opacity-50 disabled:cursor-not-allowed"
+  >
+    ← Prev
+  </button>
+
+  <span class="text-lg font-medium text-gray-700">
+    Page {{ page }} of {{ totalPages }}
+  </span>
+
+  <button
+    @click="nextPage"
+    :disabled="page === totalPages"
+    class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition 
+           disabled:opacity-50 disabled:cursor-not-allowed"
+  >
+    Next →
+  </button>
+</div>
+
+
       </div>
   
       <!-- Modal Add/Edit Product -->
@@ -242,12 +250,17 @@
   }, 400);
   
   const nextPage = () => {
-    const total = computedTotal.value;
-    if (page.value * limit < total) {
-      page.value++;
-    }
-  };
-  
+  if (page.value < totalPages.value) {
+    page.value++;
+  }
+};
+
+  // Hitung total halaman
+  const totalPages = computed(() => {
+  return Math.max(1, Math.ceil(computedTotal.value / limit));
+});
+
+
   const prevPage = () => {
     if (page.value > 1) {
       page.value--;
